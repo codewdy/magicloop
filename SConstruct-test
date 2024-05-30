@@ -1,6 +1,12 @@
 env = Environment(tools=["default"], PLATFORM="")
 env.Append(CPPPATH=["src/"])
-sources = Glob("src/game/*.cpp") + Glob("src/game/**/*.cpp") + Glob("test/*.cpp")
+env.Append(CXXFLAGS=["-std=c++17"])
+sources = []
+sources += Glob("src/game/*.cpp")
+sources += Glob("src/game/**/*.cpp")
+sources += Glob("src/lib/*.cpp")
+sources += Glob("src/lib/**/*.cpp")
+sources += Glob("test/*.cpp")
 tester = env.Program(
     "tester",
     source=sources,

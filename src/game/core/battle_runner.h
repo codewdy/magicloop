@@ -6,13 +6,10 @@ class Env;
 
 class BattleRunner {
  public:
-  struct Args {
-    // Map
-    // Level
-    // Player
-    Env* env;
-  };
-  explicit BattleRunner(Args args);
+  explicit BattleRunner(Env* env);
+
+  void init();
+  void clear();
 
   void run();
   void move();

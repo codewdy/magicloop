@@ -5,16 +5,19 @@
 #include "game/core/battle_runner.h"
 #include "game/core/unit_collection.h"
 #include "game/core/game_rule.h"
+#include "game/core/map.h"
+#include "game/core/map_creator.h"
+#include "game/core/player.h"
 
 namespace magic_loop {
 
-class Env {
- public:
-  GameRule* game_rule() { return game_rule_.get(); }
- private:
-  std::unique_ptr<GameRule> game_rule_;
-  std::unique_ptr<BattleRunner> battle_;
-  std::unique_ptr<UnitCollection> units_;
+struct Env {
+  std::unique_ptr<GameRule> game_rule;
+  std::unique_ptr<MapCreator> map_creator;
+  std::unique_ptr<BattleRunner> battle;
+  std::unique_ptr<Player> player;
+  std::unique_ptr<Map> map;
+  std::unique_ptr<UnitCollection> units;
 };
 
 }
