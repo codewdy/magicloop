@@ -9,12 +9,10 @@ class Env;
 
 class MapCreator {
  public:
-  MapCreator(Env* env);
   void register_map_template(std::unique_ptr<MapTempalte>);
-  void create_map();
+  void create(Env* env);
 
  private:
-  Env* env_;
 };
 
 }

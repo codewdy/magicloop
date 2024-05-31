@@ -12,14 +12,14 @@ class Object {
   using ObjectRecycleFunc = void(Object*);
   using ObjectRecycleFuncPtr = ObjectRecycleFunc*;
 
-  void New(ObjectRecycleFuncPtr recycle) {
+  void start(ObjectRecycleFuncPtr recycle) {
     ref_count_ = 0;
     recycle_ = recycle;
   }
-  void Ref() {
+  void ref() {
     ref_count_++;
   }
-  void Unref() {
+  void unref() {
     if (--ref_count_ == 0) {
       recycle_(this);
     }
@@ -33,19 +33,22 @@ template<typename T,
          typename Tok = std::enable_if_t<std::is_convertible_v<T*, Object*>>>
 class Ref {
  public:
+  Ref() {
+    raw_ = nullptr;
+  }
   Ref(T* rhs) {
     raw_ = rhs;
-    raw_->Ref();
+    raw_->ref();
   }
   ~Ref() {
     if (raw_) {
-      raw_->Unref();
+      raw_->unref();
     }
   }
   template<typename U, typename Uok = std::enable_if_t<std::is_convertible_v<U*, T*>>>
   Ref(const Ref<U>& rhs) {
     raw_ = rhs.raw_;
-    raw_->Ref();
+    raw_->ref();
   }
 
   template<typename U, typename Uok = std::enable_if_t<std::is_convertible_v<U*, T*>>>
@@ -57,16 +60,16 @@ class Ref {
   template<typename U, typename Uok = std::enable_if_t<std::is_convertible_v<U*, T*>>>
   Ref& operator=(const Ref<U>& rhs) {
     if (raw_) {
-      raw_->Unref();
+      raw_->unref();
     }
     raw_ = rhs.raw_;
-    raw_->Ref();
+    raw_->ref();
   }
 
   template<typename U, typename Uok = std::enable_if_t<std::is_convertible_v<U*, T*>>>
   Ref& operator=(Ref<U>&& rhs) {
     if (raw_) {
-      raw_->Unref();
+      raw_->unref();
     }
     raw_ = rhs.raw_;
     rhs.raw_ = nullptr;
@@ -86,12 +89,12 @@ class Ref {
 template<typename T>
 class ObjectPool {
  public:
-  static void Recycle(Object* o) {
+  static void recycle(Object* o) {
     State* s = state();
     s->pool_.push_back((T*)o);
   }
   template<typename... Targs>
-  static Ref<T> Create(Targs&&... args) {
+  static Ref<T> create(Targs&&... args) {
     State* s = state();
     if (s->pool_.empty()) {
       s->mem_.emplace_back(new T[kBlock]);
@@ -101,8 +104,8 @@ class ObjectPool {
     }
     T* x = s->pool_.back();
     s->pool_.pop_back();
-    x->New(Recycle);
-    x->Init(std::forward<Targs>(args)...);
+    x->start(recycle);
+    x->init(std::forward<Targs>(args)...);
     return Ref<T>(x);
   }
  private:
@@ -119,7 +122,7 @@ class ObjectPool {
 
 template<typename T, typename... Targs>
 Ref<T> create_object(Targs&&... args) {
-  return ObjectPool<T>::Create(std::forward<Targs>(args)...);
+  return ObjectPool<T>::create(std::forward<Targs>(args)...);
 }
 
 }

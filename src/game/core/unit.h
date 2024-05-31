@@ -1,12 +1,13 @@
 #pragma once
 
 #include "game/core/damage.h"
+#include "game/core/renderable.h"
 
 namespace magic_loop {
 
 class Env;
 
-class Unit {
+class Unit : public Renderable {
  public:
   Unit(Env* env);
 

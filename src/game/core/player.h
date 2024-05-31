@@ -4,7 +4,7 @@
 
 namespace magic_loop {
 
-class Player : Unit {
+class Player : public Unit {
 };
 
 }

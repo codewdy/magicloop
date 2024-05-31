@@ -1,13 +1,19 @@
 #pragma once
 
-#include "game/core/vector2d.h"
+#include "game/core/renderable.h"
 
 namespace magic_loop {
 
-class Map {
+class Map : public Renderable {
  public:
-  void Move(Vector2D origin, Vector2D diff, float size,
-      Vector2D* rst, bool* blocked);
+  void init(const std::string& name);
+
+  std::string name() {
+    return name_;
+  }
+
+ private:
+  std::string name_;
 };
 
 }

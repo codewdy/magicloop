@@ -4,7 +4,7 @@
 using namespace magic_loop;
 class XO : public Object {
  public:
-  void Init(int x) {
+  void init(int x) {
     x_ = x;
   };
   int x_;

@@ -15,8 +15,8 @@ struct Env {
   std::unique_ptr<GameRule> game_rule;
   std::unique_ptr<MapCreator> map_creator;
   std::unique_ptr<BattleRunner> battle;
-  std::unique_ptr<Player> player;
-  std::unique_ptr<Map> map;
+  Ref<Player> player;
+  Ref<Map> map;
   std::unique_ptr<UnitCollection> units;
 };
 
