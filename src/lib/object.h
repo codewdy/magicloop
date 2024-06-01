@@ -12,6 +12,8 @@ class Object {
   using ObjectRecycleFunc = void(Object*);
   using ObjectRecycleFuncPtr = ObjectRecycleFunc*;
 
+  virtual ~Object() = default;
+
   void start(ObjectRecycleFuncPtr recycle) {
     ref_count_ = 0;
     recycle_ = recycle;

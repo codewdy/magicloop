@@ -5,13 +5,11 @@
 
 namespace magic_loop {
 
-class Env;
+struct Env;
 
 class Unit : public Renderable {
  public:
-  Unit(Env* env);
-
-  Env* env();
+  void init(Env* env);
 
   virtual void update();
   virtual void move();

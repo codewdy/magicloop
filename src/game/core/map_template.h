@@ -1,13 +1,19 @@
 #pragma once
 
+#include <string>
+
 namespace magic_loop {
 
-class Env;
+struct Env;
 
 class MapTempalte {
  public:
-  int weight(Env* env);
+  MapTempalte(std::string name);
+  std::string name();
   void create(Env* env);
+
+ private:
+  std::string name_;
 };
 
 }

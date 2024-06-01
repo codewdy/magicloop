@@ -1,8 +1,10 @@
 #pragma once
 
+#include "game/core/unit.h"
+
 namespace magic_loop {
 
-class Env;
+struct Env;
 
 class BattleRunner {
  public:
@@ -13,7 +15,10 @@ class BattleRunner {
 
   void run();
   void move();
+
   void update();
+
+  void add_unit(Ref<Unit> unit);
 
  private:
   Env* env_;

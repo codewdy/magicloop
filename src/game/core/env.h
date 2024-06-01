@@ -14,6 +14,7 @@ namespace magic_loop {
 struct Env {
   std::unique_ptr<GameRule> game_rule;
   std::unique_ptr<MapCreator> map_creator;
+  std::shared_ptr<RenderableManager> renderable_manager;
   std::unique_ptr<BattleRunner> battle;
   Ref<Player> player;
   Ref<Map> map;
