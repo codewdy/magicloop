@@ -9,7 +9,6 @@ struct Env;
 class MapTempalte {
  public:
   MapTempalte(std::string name);
-  std::string name();
   void create(Env* env);
 
  private:

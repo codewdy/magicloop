@@ -66,6 +66,7 @@ class Ref {
     }
     raw_ = rhs.raw_;
     raw_->ref();
+    return *this;
   }
 
   template<typename U, typename Uok = std::enable_if_t<std::is_convertible_v<U*, T*>>>
@@ -75,6 +76,7 @@ class Ref {
     }
     raw_ = rhs.raw_;
     rhs.raw_ = nullptr;
+    return *this;
   }
 
   T& operator*() const {
@@ -84,7 +86,6 @@ class Ref {
   T* operator->() const {
     return raw_;
   }
- private:
   T* raw_;
 };
 

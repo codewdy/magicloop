@@ -10,6 +10,7 @@ class GameRunner {
   GameRunner();
   GameRule* game_rule();
   void register_map_template(std::unique_ptr<MapTempalte> mt);
+  void set_ui(std::shared_ptr<UI> ui);
   void update();
   void main_loop();
 

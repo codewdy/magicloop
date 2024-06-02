@@ -12,11 +12,4 @@ class Renderable : public Object {
  private:
 };
 
-class RenderableManager {
- public:
-  virtual ~RenderableManager() = default;
-  virtual void add(Ref<Renderable> renderable) = 0;
-  virtual void kill() = 0;
-};
-
 }

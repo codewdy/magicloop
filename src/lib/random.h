@@ -8,8 +8,9 @@ struct Random {
   static std::mt19937 thread_local_rnd_init() {
     return std::mt19937(std::random_device()());
   }
+
   static std::mt19937& thread_local_rnd() {
-    static thread_local std::mt19937 rnd = thread_local_rnd();
+    static thread_local std::mt19937 rnd = thread_local_rnd_init();
     return rnd;
   }
   static int randint(int e) {

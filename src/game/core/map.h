@@ -6,7 +6,11 @@ namespace magic_loop {
 
 class Map : public Renderable {
  public:
-  void init(const std::string& name);
+  std::string render_name() override { return "Map"; }
+
+  void init(const std::string& name) {
+    name_ = name;
+  }
 
   std::string name() {
     return name_;

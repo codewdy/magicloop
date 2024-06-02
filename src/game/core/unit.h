@@ -9,20 +9,24 @@ struct Env;
 
 class Unit : public Renderable {
  public:
-  void init(Env* env);
+  std::string render_name() override { return "Unit"; }
 
-  virtual void update();
-  virtual void move();
-  virtual Damage calc_damage(Damage dmg);
-  virtual void damage(Damage dmg);
+  void init(Env* env) {
+    env_ = env;
+  }
 
-  virtual void on_update();
-  virtual void on_struct(Unit* src);
-  virtual void on_hit(Unit* dst);
-  virtual void on_death(Unit* src);
-  virtual void on_kill(Unit* dst);
-  virtual void on_damage_pre(Damage* dmg);
-  virtual void on_damage_post(Damage* dmg);
+  void update();
+  void move();
+  Damage calc_damage(Damage dmg);
+  void damage(Damage dmg);
+
+  void on_update();
+  void on_struct(Unit* src);
+  void on_hit(Unit* dst);
+  void on_death(Unit* src);
+  void on_kill(Unit* dst);
+  void on_damage_pre(Damage* dmg);
+  void on_damage_post(Damage* dmg);
 
  private:
   Env* env_;

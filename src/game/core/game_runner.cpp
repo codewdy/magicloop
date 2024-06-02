@@ -1,4 +1,5 @@
 #include "game/core/game_runner.h"
+#include <iostream>
 
 namespace magic_loop {
 
@@ -7,6 +8,7 @@ GameRunner::GameRunner() {
   env_ = std::make_unique<Env>();
   env_->game_rule = std::make_unique<GameRule>();
   env_->map_creator = std::make_unique<MapCreator>(env_.get());
+  env_->player = create_object<Player>(env_.get());
 }
 
 GameRule* GameRunner::game_rule() {
@@ -15,6 +17,10 @@ GameRule* GameRunner::game_rule() {
 
 void GameRunner::register_map_template(std::unique_ptr<MapTempalte> mt) {
   env_->map_creator->register_map_template(std::move(mt));
+}
+
+void GameRunner::set_ui(std::shared_ptr<UI> ui) {
+  env_->ui = ui;
 }
 
 void GameRunner::update() {

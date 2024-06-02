@@ -1,27 +1,25 @@
-#include "lib/object.h"
+#include "game/core/game_runner.h"
 #include <iostream>
 
 using namespace magic_loop;
-class XO : public Object {
+
+class MockUI : public UI {
  public:
-  void init(int x) {
-    x_ = x;
-  };
-  int x_;
+  void add_render(Ref<Renderable> renderable) override {
+    std::cout << "render " << renderable->render_name() << std::endl;
+  }
+  void kill() override {
+    std::cout << "kill" << std::endl;
+  }
 };
 
 int main() {
-  {
-    auto x = create_object<XO>(1);
-    std::cout << x->x_ << std::endl;
-    std::cout << &*x << std::endl;
-  }
-  {
-    auto x = create_object<XO>(1);
-    std::cout << x->x_ << std::endl;
-    std::cout << &*x << std::endl;
-    auto y = create_object<XO>(2);
-    std::cout << y->x_ << std::endl;
-    std::cout << &*y << std::endl;
+  auto mock_ui = std::make_shared<MockUI>();
+  GameRunner game;
+  game.set_ui(mock_ui);
+  game.register_map_template(std::make_unique<MapTempalte>("234"));
+  for (int i = 0; i < 20; i++) {
+    std::cout << "Update " << i << std::endl;
+    game.update();
   }
 }
