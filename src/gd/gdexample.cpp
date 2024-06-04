@@ -1,5 +1,6 @@
 #include "gdexample.h"
 #include <godot_cpp/core/class_db.hpp>
+#include "gd/register.h"
 
 using namespace godot;
 
@@ -22,3 +23,7 @@ void GDExample::_process(double delta) {
 
 	set_position(new_position);
 }
+
+GDREGISTER({
+	ClassDB::register_class<GDExample>();
+});

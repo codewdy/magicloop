@@ -1,2 +1,2 @@
-scons tester
-./tester
+scons test/test
+test/test

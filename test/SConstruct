@@ -1,0 +1,25 @@
+def RGlob(root_path, pattern):
+    result_nodes = []
+    paths = [root_path]
+    while paths:
+        path = paths.pop()
+        all_nodes = Glob(f'{path}/*')
+        paths.extend(entry for entry in all_nodes
+                     if entry.isdir() or (entry.srcnode() and entry.srcnode().isdir()))
+        result_nodes.extend(Glob(f'{path}/{pattern}'))
+    return sorted(result_nodes)
+
+env = Environment(tools=["default"], PLATFORM="")
+env["CXX"] = "clang++"
+env.Append(CPPPATH=["../src/"])
+env.Append(CXXFLAGS=["-std=c++20"])
+env.Append(CXXFLAGS=["-g"])
+sources = []
+sources += RGlob("../src/game", "*.cpp")
+sources += RGlob("../src/lib", "*.cpp")
+sources += RGlob(".", "*.cpp")
+test = env.Program(
+    "test",
+    source=sources,
+)
+Return("test")

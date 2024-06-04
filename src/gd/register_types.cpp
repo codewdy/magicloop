@@ -1,8 +1,8 @@
-#include "gd/gdexample.h"
-
 #include <gdextension_interface.h>
 #include <godot_cpp/core/defs.hpp>
 #include <godot_cpp/godot.hpp>
+
+#include "gd/register.h"
 
 using namespace godot;
 
@@ -11,7 +11,7 @@ void initialize_magicloop_module(ModuleInitializationLevel p_level) {
 		return;
 	}
 
-	ClassDB::register_class<GDExample>();
+  magic_loop::GDRegister::Instance()->Run();
 }
 
 void uninitialize_magicloop_module(ModuleInitializationLevel p_level) {
