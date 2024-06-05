@@ -16,16 +16,8 @@ def RGlob(root_path, pattern):
         result_nodes.extend(Glob(f'{path}/{pattern}'))
     return sorted(result_nodes)
 
-# For reference:
-# - CCFLAGS are compilation flags shared between C and C++
-# - CFLAGS are for C-specific compilation flags
-# - CXXFLAGS are for C++-specific compilation flags
-# - CPPFLAGS are for pre-processor flags
-# - CPPDEFINES are for pre-processor defines
-# - LINKFLAGS are for linking flags
-
-# tweak this if you want to use different folders, or more folders, to store your source code in.
 env.Append(CPPPATH=["src/"])
+env.Append(CXXFLAGS=["-std=c++20"])
 sources = RGlob("src", "*.cpp")
 
 if env["platform"] == "macos":
