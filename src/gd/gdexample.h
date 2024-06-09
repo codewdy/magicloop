@@ -10,6 +10,7 @@ class GDExample : public Sprite2D {
 
 private:
 	double time_passed;
+  double xx;
 
 protected:
 	static void _bind_methods();

@@ -5,6 +5,8 @@ using namespace magic_loop;
 
 class MockUI : public UI {
  public:
+  void start_battle() override {
+  }
   void add_render(Ref<Renderable> renderable) override {
     std::cout << "render " << renderable->render_name() << std::endl;
   }
